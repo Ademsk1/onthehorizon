@@ -22,9 +22,24 @@ def main():
     x = np.cos(lats) * np.cos(longs)
     y = np.cos(lats) *np.sin(longs)
     z = np.sin(lats)
-    ax = plt.axes(projection='3d')
-    ax.scatter(x[0], y[0], z[0])
-    ax.plot3D(x,y,z)
+    coords = np.array([x,y,z])
+    print(coords)
+    rot = np.deg2rad(30)
+    transform = np.array([
+        [1, 0, 0 ],
+        [0, np.cos(rot), np.sin(rot)],
+        [0, -np.sin(rot), np.cos(rot)]
+    ])
+
+    xt, yt, zt = np.dot(transform, coords)
+
+    #ax = plt.axes(projection='3d')
+    # ax.scatter(x[0], y[0], z[0])
+    #ax.plot3D(xt, yt, zt) 
+    phi = np.linspace(0, 2*np.pi, 1000)
+    plt.plot(np.sqrt(0.5 + (np.sin(phi)**2)*0.5))
+    plt.plot(np.sqrt(2)/2 + (1-np.sqrt(2)/2)/2+np.sin(-(2*phi+np.pi/2))*(1-np.sqrt(2)/2)/2)
+
     
     plt.show()
 
